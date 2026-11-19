@@ -315,7 +315,7 @@
                             :class="topImage === 'left' ? 'z-30 scale-105 -translate-y-2' : 'z-10 scale-100'"
                             class="absolute left-4 sm:left-8 w-60 h-60 sm:w-72 sm:h-72 rounded-full overflow-hidden shadow-2xl border-4 border-white transition-all duration-300 cursor-pointer"
                         >
-                            <img src="{{ asset('images/nsc-people.jpg') }}" alt="Campus History" class="w-full h-full object-cover">
+                            <img src="{{ asset('images/heritage-pic.jpg') }}" alt="Campus History" class="w-full h-full object-cover">
                         </div>
 
                         <!-- Image 2 (Right Overlapping Circle - Venn Diagram Effect) -->
@@ -325,7 +325,7 @@
                             :class="topImage === 'right' ? 'z-30 scale-105 -translate-y-2' : 'z-20 scale-100'"
                             class="absolute right-4 sm:right-8 w-60 h-60 sm:w-72 sm:h-72 rounded-full overflow-hidden shadow-2xl border-4 border-white transition-all duration-300 cursor-pointer"
                         >
-                            <img src="{{ asset('images/graduation-pic.jpg') }}" alt="Student Life & Programs" class="w-full h-full object-cover">
+                            <img src="{{ asset('images/heritage-pic2.jpg') }}" alt="Student Life & Programs" class="w-full h-full object-cover">
                         </div>
 
                     </div>
@@ -334,7 +334,7 @@
             </div>
         </section>
 
-        <!-- Programs Offered Section (Slideable on All Screen Sizes with Left/Right Buttons) -->
+        <!-- Programs Offered Section (DYNAMIC DATABASE LOOP) -->
         <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16" x-data="{ 
             scrollContainer: null,
             scrollLeft() {
@@ -374,93 +374,28 @@
                 </div>
             </div>
 
-            <!-- Horizontal Scrollable Container -->
+            <!-- Horizontal Scrollable Container Loop -->
             <div x-ref="slider" class="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory pb-4">
-                
-                <!-- Card 1: BSIT -->
+                @foreach($programs as $program)
                 <div class="program-card shrink-0 w-[85%] sm:w-[320px] lg:w-[350px] snap-start relative h-[420px] rounded-2xl overflow-hidden shadow-lg group flex flex-col justify-end p-6 bg-slate-900">
-                    <img src="{{ asset('images/program-bsit.jpg') }}" alt="BSIT" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-70">
+                    <img src="{{ asset($program->image_path) }}" alt="{{ $program->code }}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-70">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
                     <div class="relative z-10">
                         <span class="inline-block px-2.5 py-1 mb-3 text-[10px] font-bold tracking-wider text-white uppercase bg-black/40 backdrop-blur-md rounded-md border border-white/20">
-                            BSIT
+                            {{ $program->code }}
                         </span>
-                        <h3 class="text-xl font-bold text-white mb-2 leading-snug">Bachelor of Science in Information Technology</h3>
-                        <p class="text-xs text-slate-200 mb-4 line-clamp-3">Focuses on software development, database management, network systems, and modern IT solutions.</p>
+                        <h3 class="text-xl font-bold text-white mb-2 leading-snug">{{ $program->title }}</h3>
+                        <p class="text-xs text-slate-200 mb-4 line-clamp-3">{{ $program->description }}</p>
                         <a href="#" class="inline-flex items-center text-xs font-semibold text-amber-300 hover:text-white transition">
                             Explore Program &rarr;
                         </a>
                     </div>
                 </div>
-
-                <!-- Card 2: BSOA -->
-                <div class="program-card shrink-0 w-[85%] sm:w-[320px] lg:w-[350px] snap-start relative h-[420px] rounded-2xl overflow-hidden shadow-lg group flex flex-col justify-end p-6 bg-slate-900">
-                    <img src="{{ asset('images/program-bsoa.jpg') }}" alt="BSOA" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-70">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-                    <div class="relative z-10">
-                        <span class="inline-block px-2.5 py-1 mb-3 text-[10px] font-bold tracking-wider text-white uppercase bg-black/40 backdrop-blur-md rounded-md border border-white/20">
-                            BSOA
-                        </span>
-                        <h3 class="text-xl font-bold text-white mb-2 leading-snug">Bachelor of Science in Office Administration</h3>
-                        <p class="text-xs text-slate-200 mb-4 line-clamp-3">Equips students with administrative, clerical, and advanced office management skills for corporate environments.</p>
-                        <a href="#" class="inline-flex items-center text-xs font-semibold text-amber-300 hover:text-white transition">
-                            Explore Program &rarr;
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Card 3: BSHM -->
-                <div class="program-card shrink-0 w-[85%] sm:w-[320px] lg:w-[350px] snap-start relative h-[420px] rounded-2xl overflow-hidden shadow-lg group flex flex-col justify-end p-6 bg-slate-900">
-                    <img src="{{ asset('images/program-bshm.jpg') }}" alt="BSHM" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-70">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-                    <div class="relative z-10">
-                        <span class="inline-block px-2.5 py-1 mb-3 text-[10px] font-bold tracking-wider text-white uppercase bg-black/40 backdrop-blur-md rounded-md border border-white/20">
-                            BSHM
-                        </span>
-                        <h3 class="text-xl font-bold text-white mb-2 leading-snug">Bachelor of Science in Hospitality Management</h3>
-                        <p class="text-xs text-slate-200 mb-4 line-clamp-3">Trains students in hotel, restaurant, and tourism operations focusing on global hospitality standards.</p>
-                        <a href="#" class="inline-flex items-center text-xs font-semibold text-amber-300 hover:text-white transition">
-                            Explore Program &rarr;
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Card 4: BSED -->
-                <div class="program-card shrink-0 w-[85%] sm:w-[320px] lg:w-[350px] snap-start relative h-[420px] rounded-2xl overflow-hidden shadow-lg group flex flex-col justify-end p-6 bg-slate-900">
-                    <img src="{{ asset('images/program-bsed.jpg') }}" alt="BSED" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-70">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-                    <div class="relative z-10">
-                        <span class="inline-block px-2.5 py-1 mb-3 text-[10px] font-bold tracking-wider text-white uppercase bg-black/40 backdrop-blur-md rounded-md border border-white/20">
-                            BSED
-                        </span>
-                        <h3 class="text-xl font-bold text-white mb-2 leading-snug">Bachelor of Secondary Education</h3>
-                        <p class="text-xs text-slate-200 mb-4 line-clamp-3">Prepares future high school educators with specialized knowledge in various teaching major fields.</p>
-                        <a href="#" class="inline-flex items-center text-xs font-semibold text-amber-300 hover:text-white transition">
-                            Explore Program &rarr;
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Card 5: BEED -->
-                <div class="program-card shrink-0 w-[85%] sm:w-[320px] lg:w-[350px] snap-start relative h-[420px] rounded-2xl overflow-hidden shadow-lg group flex flex-col justify-end p-6 bg-slate-900">
-                    <img src="{{ asset('images/program-beed.jpg') }}" alt="BEED" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-70">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-                    <div class="relative z-10">
-                        <span class="inline-block px-2.5 py-1 mb-3 text-[10px] font-bold tracking-wider text-white uppercase bg-black/40 backdrop-blur-md rounded-md border border-white/20">
-                            BEED
-                        </span>
-                        <h3 class="text-xl font-bold text-white mb-2 leading-snug">Bachelor of Elementary Education</h3>
-                        <p class="text-xs text-slate-200 mb-4 line-clamp-3">A teacher education program preparing graduates to shape young minds at the elementary level.</p>
-                        <a href="#" class="inline-flex items-center text-xs font-semibold text-amber-300 hover:text-white transition">
-                            Explore Program &rarr;
-                        </a>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
         </section>
 
-        <!-- News & Events Section (With Placeholder Terms) -->
+        <!-- News & Events Section (DYNAMIC DATABASE LOOP) -->
         <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <!-- Section Header -->
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
@@ -487,79 +422,50 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 
                 <!-- Left: Big Featured Banner Card -->
+                @if(isset($featuredNews))
                 <div class="lg:col-span-7 relative h-[400px] sm:h-[480px] rounded-2xl overflow-hidden shadow-lg group flex flex-col justify-end p-6 sm:p-8 bg-slate-900">
-                    <img src="{{ asset('images/news-featured.jpg') }}" alt="Featured News" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-80">
+                    <img src="{{ asset($featuredNews->image_path) }}" alt="Featured News" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-80">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10"></div>
                     
                     <div class="relative z-10">
                         <span class="inline-block px-3 py-1 mb-3 text-xs font-bold tracking-wider text-white uppercase bg-emerald-700/90 rounded-md">
-                            Announcement
+                            {{ $featuredNews->category }}
                         </span>
                         <h3 class="text-2xl sm:text-3xl font-bold text-white mb-3 leading-snug">
-                            3 Days to Go, NSC Students! The Countdown to a New Semester Begins!
+                            {{ $featuredNews->title }}
                         </h3>
                         <p class="text-xs sm:text-sm text-slate-200 mb-4 line-clamp-2">
-                            The excitement is building as we get ready to welcome a new semester! Prepare for another journey of learning, growth, and new opportunities as classes officially begin...
+                            {{ $featuredNews->excerpt }}
                         </p>
                         <div class="flex items-center text-xs text-slate-300 space-x-2">
-                            <span>🕒 November 9, 2026</span>
+                            <span>🕒 {{ \Carbon\Carbon::parse($featuredNews->published_date)->format('F j, Y') }}</span>
                         </div>
                     </div>
                 </div>
+                @endif
 
                 <!-- Right: Scrollable Vertical List of News Cards -->
                 <div class="lg:col-span-5 flex flex-col gap-4 max-h-[480px] overflow-y-auto pr-2 no-scrollbar">
-                    
-                    <!-- News Item 1 -->
+                    @foreach($newsList as $news)
                     <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-col sm:flex-row gap-4 items-center hover:shadow-md transition">
-                        <img src="{{ asset('images/news-1.jpg') }}" alt="News Thumbnail" class="w-full sm:w-28 h-24 object-cover rounded-lg shrink-0">
+                        <img src="{{ asset($news->image_path) }}" alt="News Thumbnail" class="w-full sm:w-28 h-24 object-cover rounded-lg shrink-0">
                         <div class="flex flex-col justify-between w-full">
                             <div class="flex items-center justify-between text-[11px] text-slate-500 mb-1">
-                                <span class="bg-emerald-50 text-emerald-800 font-semibold px-2 py-0.5 rounded">Community Updates</span>
-                                <span>Nov 3, 2026</span>
+                                <span class="bg-emerald-50 text-emerald-800 font-semibold px-2 py-0.5 rounded">{{ $news->category }}</span>
+                                <span>{{ \Carbon\Carbon::parse($news->published_date)->format('M j, Y') }}</span>
                             </div>
                             <h4 class="text-sm font-bold text-slate-900 line-clamp-2 mb-1 hover:text-[#0b381b]">
-                                <a href="#">Local Industry Partners Promote Cybersecurity Awareness Among IT Students</a>
+                                <a href="#">{{ $news->title }}</a>
                             </h4>
                             <a href="#" class="text-xs font-semibold text-[#0b381b] hover:underline mt-1">Read more &rarr;</a>
                         </div>
                     </div>
-
-                    <!-- News Item 2 -->
-                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-col sm:flex-row gap-4 items-center hover:shadow-md transition">
-                        <img src="{{ asset('images/news-2.jpg') }}" alt="News Thumbnail" class="w-full sm:w-28 h-24 object-cover rounded-lg shrink-0">
-                        <div class="flex flex-col justify-between w-full">
-                            <div class="flex items-center justify-between text-[11px] text-slate-500 mb-1">
-                                <span class="bg-amber-50 text-amber-800 font-semibold px-2 py-0.5 rounded">Announcement</span>
-                                <span>Oct 27, 2026</span>
-                            </div>
-                            <h4 class="text-sm font-bold text-slate-900 line-clamp-2 mb-1 hover:text-[#0b381b]">
-                                <a href="#">Second Semester Enrollment Now Open at Northern Samar Colleges</a>
-                            </h4>
-                            <a href="#" class="text-xs font-semibold text-[#0b381b] hover:underline mt-1">Read more &rarr;</a>
-                        </div>
-                    </div>
-
-                    <!-- News Item 3 -->
-                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-col sm:flex-row gap-4 items-center hover:shadow-md transition">
-                        <img src="{{ asset('images/news-3.jpg') }}" alt="News Thumbnail" class="w-full sm:w-28 h-24 object-cover rounded-lg shrink-0">
-                        <div class="flex flex-col justify-between w-full">
-                            <div class="flex items-center justify-between text-[11px] text-slate-500 mb-1">
-                                <span class="bg-blue-50 text-blue-800 font-semibold px-2 py-0.5 rounded">News</span>
-                                <span>Oct 24, 2026</span>
-                            </div>
-                            <h4 class="text-sm font-bold text-slate-900 line-clamp-2 mb-1 hover:text-[#0b381b]">
-                                <a href="#">NSC Partners with Government Agencies to Establish Campus Innovation Hub</a>
-                            </h4>
-                            <a href="#" class="text-xs font-semibold text-[#0b381b] hover:underline mt-1">Read more &rarr;</a>
-                        </div>
-                    </div>
-
+                    @endforeach
                 </div>
 
             </div>
         </section>
-        
+
         <!-- Extra Section -->
         <section id="about" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
             <div class="bg-[#0b381b] rounded-2xl p-6 sm:p-12 text-white text-center">
