@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Models\Accreditation;
 use App\Models\NewsItem;
 use App\Models\Program;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -35,6 +36,31 @@ class AdminTestControllerTest extends TestCase
             ->assertOk()
             ->assertSee('Information Technology')
             ->assertSee('Campus Update');
+    }
+
+    public function test_admin_dashboard_renders_board_member_form_with_alpine_and_store_action(): void
+    {
+        $this->get(route('admin.test'))
+            ->assertOk()
+            ->assertSee('<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>', false)
+            ->assertSee('action="'.route('board-members.store').'"', false);
+    }
+
+    public function test_admin_dashboard_renders_accreditations_for_management(): void
+    {
+        Accreditation::create([
+            'badge_number' => '01',
+            'title' => 'Quality Assurance',
+            'description' => 'Institutional accreditation details.',
+            'theme' => 'forest',
+            'icon' => 'award',
+            'sort_order' => 1,
+        ]);
+
+        $this->get(route('admin.test'))
+            ->assertOk()
+            ->assertSee('Quality Assurance')
+            ->assertSee('action="'.route('accreditations.store').'"', false);
     }
 
     public function test_valid_program_submission_creates_record_and_stores_image(): void

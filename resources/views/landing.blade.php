@@ -283,6 +283,7 @@
                     <a href="#history" @click.prevent="activeTab = 'about-history'; mobileMenuOpen = false; openDropdown = null; window.scrollTo({top: 0, behavior: 'smooth'})" class="block py-1 text-xs text-slate-600 hover:text-[#0b381b]">History &amp; Heritage</a>
                     <a href="#vision" @click.prevent="activeTab = 'about-vision'; mobileMenuOpen = false; openDropdown = null; window.scrollTo({top: 0, behavior: 'smooth'})" class="block py-1 text-xs text-slate-600 hover:text-[#0b381b]">Vision &amp; Mission</a>
                     <a href="#board" @click.prevent="activeTab = 'about-board'; mobileMenuOpen = false; openDropdown = null; window.scrollTo({top: 0, behavior: 'smooth'})" class="block py-1 text-xs text-slate-600 hover:text-[#0b381b]">Administration &amp; Board</a>
+                    <a href="#accreditations" @click.prevent="activeTab = 'about-accreditations'; mobileMenuOpen = false; openDropdown = null; window.scrollTo({top: 0, behavior: 'smooth'})" class="block py-1 text-xs text-slate-600 hover:text-[#0b381b]">Accreditations &amp; Achievements</a>
                     <a href="#contact" @click.prevent="activeTab = 'about-contact'; mobileMenuOpen = false; openDropdown = null; window.scrollTo({top: 0, behavior: 'smooth'})" class="block py-1 text-xs text-slate-600 hover:text-[#0b381b]">Contact Us</a>
                 </div>
             </div>
@@ -1523,11 +1524,57 @@
             </div>
         </div>
 
-        <div x-show="activeTab === 'about-board'" x-cloak x-transition.opacity.duration.300ms class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <button @click="activeTab = 'home'" class="text-xs font-semibold text-[#0b381b] hover:underline mb-4 inline-block">&larr; Back to Home</button>
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-6">Administration & Board</h1>
-            <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs text-slate-600">
-                <p>Directory of school executives, department deans, and administrative officers.</p>
+        <!-- ========================================================= -->
+        <!-- TAB 2D: ABOUT US - ADMINISTRATION & BOARD                 -->
+        <!-- ========================================================= -->
+        <div x-show="activeTab === 'about-board'" x-cloak x-transition.opacity.duration.300ms>
+            <x-page-banner
+                badge="About Us"
+                title="Administration & Board"
+                subtitle="Meet the leadership, board of trustees, and academic administrators guiding Northern Samar Colleges."
+                image="images/nsc-people.jpg"
+            />
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-8">
+                <div>
+                    <div class="flex items-center space-x-2.5 text-[#0b381b] text-xs font-bold uppercase tracking-widest mb-1.5">
+                        <span class="w-6 h-[2px] bg-[#0b381b] rounded-full"></span>
+                        <span>Organizational Structure</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                        Administrative <span class="font-serif text-[#0b381b]">Chart</span>
+                    </h2>
+                </div>
+
+                <div class="bg-slate-50/70 rounded-3xl border border-slate-200/90 p-6 sm:p-10 overflow-x-auto">
+                    @if($boardRoots->isEmpty())
+                        <p class="text-sm text-slate-500 text-center py-10">
+                            Organizational chart entries will appear here once added in the admin panel.
+                        </p>
+                    @else
+                        <div class="min-w-max flex items-start justify-center gap-10 mx-auto">
+                            @foreach($boardRoots as $root)
+                                <x-org-node :node="$root" />
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- TAB 2E: ABOUT US - ACCREDITATIONS & ACHIEVEMENTS           -->
+        <!-- ========================================================= -->
+        <div x-show="activeTab === 'about-accreditations'" x-cloak x-transition.opacity.duration.300ms>
+            <x-page-banner
+                badge="About Us"
+                title="Accreditations & Achievements"
+                subtitle="Explore the college's accreditations, quality standards, and institutional recognitions."
+                image="images/nsc-people.jpg"
+            />
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                <x-accreditation-grid :items="$accreditations" />
             </div>
         </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accreditation;
 use App\Models\NewsItem;
 use App\Models\Program;
 use Illuminate\Http\RedirectResponse;
@@ -16,6 +17,7 @@ class AdminTestController extends Controller
         return view('admin-test', [
             'programs' => Program::latest()->get(),
             'newsItems' => NewsItem::latest()->get(),
+            'accreditations' => Accreditation::query()->orderBy('sort_order')->orderBy('id')->get(),
         ]);
     }
 
